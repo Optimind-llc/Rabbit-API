@@ -6,8 +6,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-use Dingo\Api\Routing\Helpers;
-
 use App\Models\Access\User\User;
 
 use JWTAuth;
@@ -19,8 +17,6 @@ use Tymon\JWTAuth\Exceptions\JWTException;
  */
 class PagesController extends Controller
 {
-	use Helpers;
-
     public function front()
     {
     	// return 'aaa';
@@ -31,6 +27,7 @@ class PagesController extends Controller
 
         // return $user;
         return $token;
+
         // return $this->response->array($user->toArray());
         // return $this->response->item($user, new UserTransformer);
 
@@ -39,18 +36,44 @@ class PagesController extends Controller
         // return $this->response->noContent();
     }
 
-    public function front2()
+    public function show()
     {
-    	JWTAuth::parseToken();
-    	$user = JWTAuth::parseToken()->authenticate();
+        try {
+            $user = JWTAuth::parseToken()->toUser();
 
-    	return $user;
+            if (!$user) {
+                return $this->response->errorNotFound('User Not Found');
+            }
+        } catch (JWTException $e) {
+            return $this->response->error('something went wrong');
+        }
+    	
+        return $this->response->array(compact('user'));
     }
 
 
-    public function back()
+    public function decode()
     {
-        $user = User::findOrFail(1);
-        return $this->response->array($user->toArray());
+        $token = JWTAuth::getToken();
+        $decode = JWTAuth::decode($token);
+
+        return $decode;
+    }
+
+    public function refresh()
+    {
+        $token = JWTAuth::getToken();
+
+        if (!$token) {
+            return $this->response->errorUnauthorized();
+        }
+
+        try {
+            $refreshedToken = JWTAuth::refresh($token);
+        } catch (JWTException $e) {
+            return $this->response->error('something went wrong');
+        }
+
+        return $refreshedToken;
     }
 }

@@ -168,11 +168,8 @@ return [
     */
 
     'auth' => [
-        // 'basic' => function ($app) {
-        //     return new Dingo\Api\Auth\Provider\Basic($app['auth']);
-        // }
-
-        'basic' => 'Dingo\Api\Auth\Provider\Basic'
+        // 'basic' => 'Dingo\Api\Auth\Provider\Basic',
+        'jwt' => 'Dingo\Api\Auth\Provider\JWT',
     ],
 
     /*
@@ -222,7 +219,5 @@ return [
         'json' => Dingo\Api\Http\Response\Format\Json::class,
 
     ],
-
-    'jwt' => 'Dingo\Api\Auth\Provider\JWT',
 
 ];

@@ -158,11 +158,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        // Dingo Laravel Service Providers...
+        // Dingo Laravel Service Provider
         Dingo\Api\Provider\LaravelServiceProvider::class,
 
-        // tymondesigns jwt-auth
-        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
+        // Zizaco Entrust Provider
+        Zizaco\Entrust\EntrustServiceProvider::class,
+
+        // Tymondesigns JWT Auth Provider
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
     ],
 
     /*
@@ -207,9 +210,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        // tymondesigns jwt-auth
-        'JWTAuth' => 'Tymon\JWTAuth\Facades\JWTAuth',
-        'JWTFactory' => 'Tymon\JWTAuth\Facades\JWTFactory'
+
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 
     ],
 

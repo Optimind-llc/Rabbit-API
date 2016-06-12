@@ -4,6 +4,8 @@ namespace App\Models\Access\Admin;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// Zizaco Entrust User Trait
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 /**
  * Class Admin
@@ -12,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Admin extends Authenticatable
 {
 
-    use SoftDeletes;
+    use SoftDeletes, EntrustUserTrait;
 
     /**
      * The attributes that are not mass assignable.

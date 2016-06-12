@@ -11,24 +11,52 @@
 |
 */
 
+$api = app('Dingo\Api\Routing\Router');
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::auth();
-
 Route::get('/home', 'HomeController@index');
 
-$api = app('Dingo\Api\Routing\Router');
 
 // Publicly accessible routes
 $api->version('v1', [], function ($api) {
     $api->get('/front', 'App\Http\Controllers\PagesController@front');
-    $api->get('/front2', 'App\Http\Controllers\PagesController@front2');
- 
+
+    $api->post('/signin', 'App\Http\Controllers\Auth\AuthController@signin');
+    $api->get('/refresh', 'App\Http\Controllers\PagesController@refresh');
 });
 
 // JWT Protected routes
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
-    $api->get('/back', 'App\Http\Controllers\PagesController@back');
+    $api->get('/show', 'App\Http\Controllers\PagesController@show');
+    $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
+});
+
+
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+
+	Route::group(['namespace' => 'Auth'], function () {
+
+	    Route::group(['middleware' => 'auth:admin'], function () {
+	        Route::get('signout', 'AuthController@signout');
+	        Route::post('password/change', 'PasswordController@changePassword');
+	    });
+
+	    Route::group(['middleware' => 'guest:admin'], function () {
+	        // Authentication Routes
+	        Route::get('signin', 'AuthController@showLoginForm');
+	        Route::post('signin', 'AuthController@login');
+
+	        // Registration Routes
+	        Route::get('signup', 'AuthController@showRegistrationForm');
+	        Route::post('register', 'AuthController@register');
+
+	        // Password Reset Routes
+	        Route::get('password/reset/{token?}', 'PasswordController@showResetForm');
+	        Route::post('password/email', 'PasswordController@sendResetLinkEmail');
+	        Route::post('password/reset', 'PasswordController@reset');
+	    });
+	});
 });
