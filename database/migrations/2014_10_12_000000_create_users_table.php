@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
 
             $table->string('device_id')->nullable();
             $table->string('device_os')->nullable();
-            $table->string('api_token', 60)->unique();
+            $table->string('token', 60)->unique();
 
             $table->tinyInteger('status')->default(0)->unsigned();
             $table->string('confirmation_code');
