@@ -14,6 +14,7 @@ class CreateSchoolsTable extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->string('yomi')->unique();
             $table->smallInteger('sort')->default(0)->unsigned();
             $table->string('description')->nullable();
             $table->timestamps();
@@ -39,14 +40,12 @@ class CreateSchoolsTable extends Migration
             $table->string('geo_lat')->unique();
             // 緯度配列
             $table->string('geo_long')->unique();
+            $table->integer('school_id')->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
             $table->softDeletes();
 
-            /**
-             * Add Foreign
-             */
-            $table->integer('school_id')->unsigned();
+            // Add Foreign
             $table->foreign('school_id')
                 ->references('id')
                 ->on('schools')

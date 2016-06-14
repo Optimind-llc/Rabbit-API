@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AccessTableSeeder::class);
         $this->call(HistoryTableSeeder::class);
+        $this->call(AffiliationTableSeeder::class);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');
