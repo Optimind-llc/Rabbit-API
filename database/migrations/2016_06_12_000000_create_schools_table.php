@@ -18,6 +18,7 @@ class CreateSchoolsTable extends Migration
             $table->smallInteger('sort')->default(0)->unsigned();
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table(config('access.users_table_name'), function (Blueprint $table) {

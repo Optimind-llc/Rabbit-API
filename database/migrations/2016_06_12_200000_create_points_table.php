@@ -17,6 +17,7 @@ class CreatePointsTable extends Migration
             $table->integer('item_id')->unsigned()->nullable();
             $table->tinyInteger('amount')->default(1);
             $table->timestamps();
+            $table->softDeletes();
 
             // Add Foreign
             $table->foreign('user_id')
@@ -37,6 +38,7 @@ class CreatePointsTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('bonuses', function (Blueprint $table) {
@@ -45,6 +47,7 @@ class CreatePointsTable extends Migration
             $table->integer('bonus_type_id')->unsigned();
             $table->string('code')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             // Add Foreign
             $table->foreign('bonus_type_id')
@@ -65,6 +68,7 @@ class CreatePointsTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('rabbits', function (Blueprint $table) {
@@ -89,6 +93,7 @@ class CreatePointsTable extends Migration
             $table->string('history_type');
             $table->integer('history_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             // Add Foreign
             $table->foreign('user_id')

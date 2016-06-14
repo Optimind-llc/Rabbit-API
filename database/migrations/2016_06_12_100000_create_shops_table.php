@@ -21,6 +21,7 @@ class CreateShopsTable extends Migration
             // 緯度
             $table->string('geo_long')->unique();
             $table->timestamps();
+            $table->softDeletes();
 
             // Add Foreign
             $table->integer('owner_id')->unsigned()->nullable();
@@ -36,6 +37,7 @@ class CreateShopsTable extends Migration
             $table->string('path')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             // Add Foreign
             $table->integer('shop_id')->unsigned()->nullable();

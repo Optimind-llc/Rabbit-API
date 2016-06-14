@@ -22,8 +22,7 @@ Route::get('/home', 'HomeController@index');
 
 // Publicly accessible routes
 $api->version('v1', [], function ($api) {
-    $api->get('/front', 'App\Http\Controllers\PagesController@front');
-
+    $api->get('/schools', 'App\Http\Controllers\User\Auth\AuthController@schools');
     $api->post('/signup', 'App\Http\Controllers\User\Auth\AuthController@signup');
     $api->post('/signin', 'App\Http\Controllers\User\Auth\AuthController@signin');
     $api->post('/refresh', 'App\Http\Controllers\User\Auth\AuthController@refresh');

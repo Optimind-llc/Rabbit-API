@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use JWTAuth;
 // Models
 use App\Models\Access\User\User;
+use App\Models\Affiliation\School;
 // Requests
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Auth\SignupRequest;
@@ -19,13 +20,17 @@ use Dingo\Api\Exception\StoreResourceFailedException;
 
 class AuthController extends Controller
 {
+    public function schools()
+    {
+        $schools = School::all('id','name');
+
+        return $schools;
+    }
+
     /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
+     * Create a new user.
      */
-    protected function signup(SignupRequest $request)
+    public function signup(SignupRequest $request)
     {
         $user = User::where('email', $request->email)->first();
 
@@ -42,6 +47,7 @@ class AuthController extends Controller
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->confirmed = config('access.users.confirm_email') ? 0 : 1;
         $user->status = 1;
+        $user->school_id = $request->school_id;      
         $user->save();
 
         // Queue jobを使ってメール送信
