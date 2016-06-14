@@ -59,21 +59,4 @@ class PagesController extends Controller
 
         return $decode;
     }
-
-    public function refresh()
-    {
-        $token = JWTAuth::getToken();
-
-        if (!$token) {
-            return $this->response->errorUnauthorized();
-        }
-
-        try {
-            $refreshedToken = JWTAuth::refresh($token);
-        } catch (JWTException $e) {
-            return $this->response->error('something went wrong');
-        }
-
-        return $refreshedToken;
-    }
 }

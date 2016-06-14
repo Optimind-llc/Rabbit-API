@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth\Admin;
+namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use JWTAuth;
@@ -29,20 +29,20 @@ class AuthController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        if ($student instanceof Student) {
+        if ($user instanceof User) {
             throw new StoreResourceFailedException('email.already_exist');
         }
 
-        $student = new Student;
-        $student->family_name = $request->family_name;
-        $student->given_name = $request->given_name;
-        $student->email = $request->email;
-        $student->password = bcrypt($request->password);
-        $student->api_token = sha1(uniqid(mt_rand(), true));
-        $student->confirmation_code = md5(uniqid(mt_rand(), true));
-        $student->confirmed = config('access.users.confirm_email') ? 0 : 1;
-        $student->status = 1;
-        $student->save();
+        $user = new User;
+        $user->family_name = $request->family_name;
+        $user->given_name = $request->given_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->token = sha1(uniqid(mt_rand(), true));
+        $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        $user->confirmed = config('access.users.confirm_email') ? 0 : 1;
+        $user->status = 1;
+        $user->save();
 
         // Queue jobを使ってメール送信
         // $this->dispatch(new SendSignUpSucceedEmail($student));
@@ -71,5 +71,22 @@ class AuthController extends Controller
 
         // all good so return the token
         return response()->json(compact('token'));
+    }
+
+    public function refresh()
+    {
+        $token = JWTAuth::getToken();
+
+        if (!$token) {
+            return $this->response->errorUnauthorized();
+        }
+
+        try {
+            $refreshedToken = JWTAuth::refresh($token);
+        } catch (JWTException $e) {
+            return $this->response->error('something went wrong');
+        }
+
+        return $refreshedToken;
     }
 }

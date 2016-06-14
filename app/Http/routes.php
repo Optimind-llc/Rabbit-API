@@ -24,8 +24,9 @@ Route::get('/home', 'HomeController@index');
 $api->version('v1', [], function ($api) {
     $api->get('/front', 'App\Http\Controllers\PagesController@front');
 
-    $api->post('/signin', 'App\Http\Controllers\Auth\AuthController@signin');
-    $api->get('/refresh', 'App\Http\Controllers\PagesController@refresh');
+    $api->post('/signup', 'App\Http\Controllers\User\Auth\AuthController@signup');
+    $api->post('/signin', 'App\Http\Controllers\User\Auth\AuthController@signin');
+    $api->post('/refresh', 'App\Http\Controllers\User\Auth\AuthController@refresh');
 });
 
 // JWT Protected routes
