@@ -26,12 +26,13 @@ $api->version('v1', [], function ($api) {
     $api->post('/signup', 'App\Http\Controllers\User\Auth\AuthController@signup');
     $api->post('/signin', 'App\Http\Controllers\User\Auth\AuthController@signin');
     $api->post('/refresh', 'App\Http\Controllers\User\Auth\AuthController@refresh');
+
+    $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
 });
 
 // JWT Protected routes
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
     $api->get('/show', 'App\Http\Controllers\PagesController@show');
-    $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
 });
 
 

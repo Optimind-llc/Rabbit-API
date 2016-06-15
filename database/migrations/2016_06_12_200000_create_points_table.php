@@ -11,7 +11,7 @@ class CreatePointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('item_id')->unsigned()->nullable();
@@ -73,6 +73,7 @@ class CreatePointsTable extends Migration
 
         Schema::create('rabbits', function (Blueprint $table) {
             $table->increments('id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('rabbit_type_id')->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');
@@ -82,6 +83,13 @@ class CreatePointsTable extends Migration
             $table->foreign('rabbit_type_id')
                 ->references('id')
                 ->on('rabbit_types')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            // Add Foreign
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
@@ -116,6 +124,6 @@ class CreatePointsTable extends Migration
         Schema::drop('rabbit_types');
         Schema::drop('bonuses');
         Schema::drop('bonus_types');
-        Schema::drop('order');
+        Schema::drop('orders');
     }
 }
