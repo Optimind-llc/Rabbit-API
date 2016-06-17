@@ -6,12 +6,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Access\User\Traits\Attribute\UserAttribute;
 use App\Models\Access\User\Traits\Relationship\UserRelationship;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
  * @package App\Models\Access\User
  */
-class User extends Authenticatable
+class User extends Model
 {
 
     // use SoftDeletes, UserAttribute, UserRelationship;
