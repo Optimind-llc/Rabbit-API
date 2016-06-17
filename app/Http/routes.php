@@ -25,16 +25,14 @@ $api->version('v1', [], function ($api) {
     $api->get('/schools', 'App\Http\Controllers\User\Auth\AuthController@schools');
     $api->post('/signup', 'App\Http\Controllers\User\Auth\AuthController@signup');
     $api->post('/signin', 'App\Http\Controllers\User\Auth\AuthController@signin');
-    $api->post('/refresh', 'App\Http\Controllers\User\Auth\AuthController@refresh');
-
-    $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
+    $api->get('/refresh', 'App\Http\Controllers\User\Auth\AuthController@refresh');
 });
 
 // JWT Protected routes
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
+    $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
     $api->get('/show', 'App\Http\Controllers\PagesController@show');
 });
-
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 

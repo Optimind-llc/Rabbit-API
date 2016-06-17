@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'owner',
-        'passwords' => 'owners',
+        'guard' => 'user',
+        'passwords' => 'users',
     ],
 
     /*
@@ -83,12 +83,7 @@ return [
         'owners' => [
             'driver' => 'eloquent',
             'model' => App\Models\Access\Owner\Owner::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        ]
     ],
 
     /*
