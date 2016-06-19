@@ -55,7 +55,7 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        return $token;
+        return ['token' => $token];
     }
 
     public function signin(SigninRequest $request)
