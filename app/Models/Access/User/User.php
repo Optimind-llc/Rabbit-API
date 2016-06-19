@@ -14,8 +14,7 @@ use App\Models\Access\User\Traits\Relationship\UserRelationship;
 class User extends Authenticatable
 {
 
-    // use SoftDeletes, UserAttribute, UserRelationship;
-    use SoftDeletes;
+    use SoftDeletes, UserAttribute, UserRelationship;
 
     /**
      * The attributes that are not mass assignable.

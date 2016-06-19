@@ -75,8 +75,20 @@ class AuthController extends Controller
             return $this->response->errorInternal();
         }
 
+        $user = User::where('email', $request->email)
+            ->with([
+                'school' => function ($query) {
+                    $query->select('id', 'name');
+                }
+            ])
+            ->get();
+            //->get(['family_name', 'given_name', 'confirmed']);
+
         // all good so return the token
-        return ['token' => $token];
+        return [
+            'token' => $token,
+            'user' => $user
+        ];
     }
 
     public function refresh()

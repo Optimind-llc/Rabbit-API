@@ -12,12 +12,10 @@ trait UserRelationship
 {
 
     /**
-     * Many-to-Many relations with Role.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * One-to-Many relations with schools.
      */
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(config('access.role'), config('access.assigned_roles_table'), 'user_id', 'role_id');
-    // }
+    public function school()
+    {
+        return $this->belongsTo('App\Models\Affiliation\School');
+    }
 }
