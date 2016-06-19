@@ -76,7 +76,7 @@ class AuthController extends Controller
         }
 
         // all good so return the token
-        return response()->json(compact('token'));
+        return ['token' => $token];
     }
 
     public function refresh()
@@ -93,6 +93,6 @@ class AuthController extends Controller
             return $this->response->error('something went wrong');
         }
 
-        return $refreshedToken;
+        return ['token' => $refreshedToken];
     }
 }
