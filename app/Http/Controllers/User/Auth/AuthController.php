@@ -20,22 +20,39 @@ use Dingo\Api\Exception\StoreResourceFailedException;
 
 class AuthController extends Controller
 {
+    /**
+     * Get schools list
+     */
     public function schools()
     {
-        $schools = School::all('id','name');
-
-        return $schools;
+        return $schools = School::all('id','name');
     }
 
     /**
      * Create a new user.
      */
-    public function signup(SignupRequest $request)
+    public function signup(Request $request)
     {
+        $validator = app('validator')->make(
+            $request->all(),
+            [
+                'family_name' => ['required', 'max:50'],
+                'given_name'  => ['required', 'max:50'],
+                'email'       => ['required', 'email', 'max:255'],
+                'password'    => ['required', 'min:6', 'max:32', 'alpha_num'],
+                'device_os'   => ['required'],
+                'school_id'   => ['required', 'integer']
+            ]
+        );
+
+        if ($validator->fails()) {
+            throw new StoreResourceFailedException('Validation error', $validator->errors());
+        }
+
         $user = User::where('email', $request->email)->first();
 
         if ($user instanceof User) {
-            throw new StoreResourceFailedException('email.already_exist');
+            throw new StoreResourceFailedException('Email already exist');
         }
 
         $user = new User;
@@ -58,21 +75,27 @@ class AuthController extends Controller
         return ['token' => $token];
     }
 
-    public function signin(SigninRequest $request)
+    /**
+     * Sign in user and return API token.
+     */
+    public function signin(Request $request)
     {
-        // grab credentials from the request
+        $validator = app('validator')->make(
+            $request->all(),
+            [
+                'email'    => ['required', 'email', 'max:255'],
+                'password' => ['required', 'min:6', 'max:32', 'alpha_num']
+            ]
+        );
+
+        if ($validator->fails()) {
+            throw new StoreResourceFailedException('Validation error', $validator->errors());
+        }
+
         $credentials = $request->only('email', 'password');
 
-        try {
-            // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
-                // return response()->json(['error' => 'invalid_credentials'], 401);
-                return $this->response->errorUnauthorized();
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            // return response()->json(['error' => 'could_not_create_token'], 500);
-            return $this->response->errorInternal();
+        if (! $token = JWTAuth::attempt($credentials)) {
+            return $this->response->errorUnauthorized();
         }
 
         $user = User::where('email', $request->email)
@@ -82,13 +105,16 @@ class AuthController extends Controller
                 }
             ])
             ->get();
-            //->get(['family_name', 'given_name', 'confirmed']);
 
-        // all good so return the token
         return [
             'token' => $token,
             'user' => $user
         ];
+    }
+
+    public function signinThirdParty($provider, Request $request)
+    {
+        return ['message' => 'Sign in with ' . $provider . ' was Unimplemented'];
     }
 
     public function refresh()
@@ -99,12 +125,6 @@ class AuthController extends Controller
             return $this->response->errorUnauthorized();
         }
 
-        try {
-            $refreshedToken = JWTAuth::refresh($token);
-        } catch (JWTException $e) {
-            return $this->response->error('something went wrong');
-        }
-
-        return ['token' => $refreshedToken];
+        return ['token' => JWTAuth::refresh($token)];
     }
 }

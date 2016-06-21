@@ -10,12 +10,15 @@ use App\Models\Access\User\SocialLogin;
  */
 trait UserRelationship
 {
-
-    /**
-     * One-to-Many relations with schools.
-     */
     public function school()
     {
         return $this->belongsTo('App\Models\Affiliation\School');
     }
+
+    public function rabbits()
+    {
+        return $this->belongsTo('App\Models\History\Rabbit');
+    }
+
+    
 }
