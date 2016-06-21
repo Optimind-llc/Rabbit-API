@@ -125,6 +125,12 @@ class AuthController extends Controller
             return $this->response->errorUnauthorized();
         }
 
-        return ['token' => JWTAuth::refresh($token)];
+        try {
+            $refreshedToken = JWTAuth::refresh($token);
+        } catch (JWTException $e) {
+            return $this->response->errorUnauthorized();
+        }
+
+        return ['token' => $refreshedToken];
     }
 }
