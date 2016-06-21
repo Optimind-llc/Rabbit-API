@@ -9,7 +9,7 @@ use JWTAuth;
 // Models
 use App\Models\Access\User\User;
 // Jobs
-use App\Jobs\Student\SendInitializedPasswordEmail;
+use App\Jobs\User\SendInitializedPasswordEmail;
 // Exceptions
 use Dingo\Api\Exception\StoreResourceFailedException;
 
@@ -42,13 +42,13 @@ class PasswordController extends Controller
      * Get student from email
      */
     public function findByEmail($email) {
-        $student = User::where('email', $email)->first();
+        $user = User::where('email', $email)->first();
 
-        if (!$student instanceof User) {
+        if (!$user instanceof User) {
             return $this->response->errorNotFound('User not found');
         }
 
-        return $student;
+        return $user;
     }
 
     public function initialize(Request $request)
@@ -62,15 +62,15 @@ class PasswordController extends Controller
             throw new StoreResourceFailedException('Fail to create new user', $validator->errors());
         }
 
-        $student = $this->findByEmail($request->email);
+        $user = $this->findByEmail($request->email);
 
         $passsword = substr(base_convert(md5(uniqid()), 16, 36), 0, 8);
 
-        $student->password = bcrypt($passsword);
-        $student->save();
+        $user->password = bcrypt($passsword);
+        $user->save();
 
         // Queue jobを使ってメール送信
-        // $this->dispatch(new SendInitializedPasswordEmail($student, $passsword));
+        $this->dispatch(new SendInitializedPasswordEmail($user, $passsword));
 
         $message = 'initializePassword.success';
 
