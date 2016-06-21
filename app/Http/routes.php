@@ -20,25 +20,31 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index');
 
 
-// Publicly accessible routes
-$api->version('v1', [], function ($api) {
-    $api->get('/schools', 'App\Http\Controllers\User\Auth\AuthController@schools');
-    $api->post('/signup', 'App\Http\Controllers\User\Auth\AuthController@signup');
-    $api->post('/signin', 'App\Http\Controllers\User\Auth\AuthController@signin');
-    $api->post('/signin/{provider}', 'App\Http\Controllers\User\Auth\AuthController@signinThirdParty');
-    
-    $api->get('/refresh', 'App\Http\Controllers\User\Auth\AuthController@refresh');
 
-    $api->post('/password/initialize', 'App\Http\Controllers\User\Auth\PasswordController@initialize');
-    $api->get('/password/reset', 'App\Http\Controllers\User\Auth\PasswordController@reset');
+// Publicly accessible routes
+Route::get('/user/confirm/{token}', 'User\Auth\AuthController@confirmAccount');
+
+$api->version('v1', ['namespace' => 'App\Http\Controllers\User\Auth'], function ($api) {
+    $api->get('/schools', 'AuthController@schools');
+
+    $api->post('/signup', 'AuthController@signup');
+    $api->post('/signin', 'AuthController@signin');
+    $api->post('/signin/{provider}', 'AuthController@signinThirdParty');
+
+    $api->post('/password/initialize', 'PasswordController@initialize');
+    $api->get('/password/reset', 'PasswordController@reset');
+
+    $api->get('/refresh', 'AuthController@refresh');
 });
 
 // JWT Protected routes
 $api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
+	// $api->get('/confirm/resend', 'App\Http\Controllers\User\Auth\AuthController@resendConfirmationEmail');
+    $api->post('/password/change', 'App\Http\Controllers\User\Auth\PasswordController@change');
+
     $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
     $api->get('/show', 'App\Http\Controllers\PagesController@show');
 
-    $api->post('/password/change', 'App\Http\Controllers\User\Auth\PasswordController@change');
 });
 
 // Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {

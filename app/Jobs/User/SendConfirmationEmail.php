@@ -7,22 +7,22 @@ use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Models\Student\Student;
+use App\Models\Access\User\User;
 
 class SendConfirmationEmail extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
 
-    protected $student;
+    protected $user;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Student $student)
+    public function __construct(User $user)
     {
-        $this->student = $student;
+        $this->user = $user;
     }
 
     /**
@@ -32,16 +32,16 @@ class SendConfirmationEmail extends Job implements ShouldQueue
      */
     public function handle(Mailer $mailer)
     {
-        $student = $this->student;
+        $user = $this->user;
         $mailer->send(
-            'student.emails.signup',
+            'user.emails.signup',
             [
-                'token' => $student->confirmation_code,
-                'name' => $student->family_name.' '.$student->given_name,
-                'email' => $student->email,
+                'token' => $user->confirmation_code,
+                'name' => $user->family_name.' '.$user->given_name,
+                'email' => $user->email,
             ],
-            function ($message) use ($student) {
-                $message->to($student->email, $student->family_name)
+            function ($message) use ($user) {
+                $message->to($user->email, $user->family_name)
                     ->subject(app_name() . ': メールの確認');
             }
         );
