@@ -13,6 +13,7 @@ class HistoryTableSeeder extends Seeder
 
         $this->call(BonusTypeTableSeeder::class);
         $this->call(BonusTableSeeder::class);
+        $this->call(RabbitTypeTableSeeder::class);
         $this->call(PointTableSeeder::class);
 
         if (env('DB_CONNECTION') == 'mysql') {

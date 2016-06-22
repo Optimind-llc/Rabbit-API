@@ -40,7 +40,7 @@ class CreateSchoolsTable extends Migration
             // 経度配列
             $table->string('geo_lat')->unique();
             // 緯度配列
-            $table->string('geo_long')->unique();
+            $table->string('geo_lon')->unique();
             $table->integer('school_id')->unsigned();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at');

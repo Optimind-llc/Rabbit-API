@@ -46,6 +46,7 @@ class UserTableSeeder extends Seeder
                 'token'             => '23109ed97f2315afc9ddfe5df7e9f68c',
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -68,6 +69,7 @@ class UserTableSeeder extends Seeder
                 'token'             => '1befc8e3fb801952f31007ef41d984ea',
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -90,6 +92,7 @@ class UserTableSeeder extends Seeder
                 'token'             => '464d7379e84f51a5ab48cff9abab50ed',
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -112,6 +115,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -134,6 +138,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -156,6 +161,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -178,6 +184,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -200,6 +207,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -222,6 +230,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -244,6 +253,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -266,6 +276,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -288,6 +299,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -310,6 +322,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -332,6 +345,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -354,6 +368,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -376,6 +391,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -398,6 +414,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -420,6 +437,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -442,6 +460,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -464,6 +483,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ],[
@@ -486,6 +506,7 @@ class UserTableSeeder extends Seeder
                 'token'             => md5(uniqid(mt_rand(), true)),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
                 'confirmed'         => true,
+                'school_id'         => 1,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
             ]

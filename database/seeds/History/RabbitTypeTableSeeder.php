@@ -5,9 +5,9 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class BonusTypeTableSeeder
+ * Class RabbitTypeTableSeeder
  */
-class BonusTypeTableSeeder extends Seeder
+class RabbitTypeTableSeeder extends Seeder
 {
     public function run()
     {
@@ -16,27 +16,27 @@ class BonusTypeTableSeeder extends Seeder
         }
 
         if (env('DB_CONNECTION') == 'mysql') {
-            DB::table('bonus_types')->truncate();
+            DB::table('rabbit_types')->truncate();
         } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . 'bonus_types');
+            DB::statement('DELETE FROM ' . 'rabbit_types');
         } else {
             //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . 'bonus_types' . ' CASCADE');
+            DB::statement('TRUNCATE TABLE ' . 'rabbit_types' . ' CASCADE');
         }
 
-        $bonus_types = [
+        $rabbit_types = [
             [
-                'name' => 'refer a friend',
+                'name' => 'for in',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],[
-                'name' => 'be refered',
+                'name' => 'for out',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-            ],
+            ]
         ];
 
-        DB::table('bonus_types')->insert($bonus_types);
+        DB::table('rabbit_types')->insert($rabbit_types);
 
         if (env('DB_CONNECTION') == 'mysql') {
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

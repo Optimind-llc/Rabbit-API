@@ -75,8 +75,8 @@ class CreatePointsTable extends Migration
             $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('rabbit_type_id')->unsigned();
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at');
+            $table->timestamp('local_time');
+            $table->timestamps();
             $table->softDeletes();
 
             // Add Foreign

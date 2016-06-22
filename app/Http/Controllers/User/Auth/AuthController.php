@@ -3,17 +3,11 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use JWTAuth;
 // Models
 use App\Models\Access\User\User;
 use App\Models\Affiliation\School;
-// Requests
-use Illuminate\Http\Request;
-use App\Http\Requests\User\Auth\SignupRequest;
-use App\Http\Requests\User\Auth\SigninRequest;
-use App\Http\Requests\User\Auth\SignoutRequest;
-use App\Http\Requests\User\Auth\ResendConfirmationEmailRequest;
-use App\Http\Requests\User\Auth\CheckApitokenRequest;
 // Exceptions
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Dingo\Api\Exception\StoreResourceFailedException;

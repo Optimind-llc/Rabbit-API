@@ -38,13 +38,17 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\User\Auth'], function 
 });
 
 // JWT Protected routes
-$api->version('v1', ['middleware' => 'api.auth', 'providers' => 'jwt'], function ($api) {
-	// $api->get('/confirm/resend', 'App\Http\Controllers\User\Auth\AuthController@resendConfirmationEmail');
-    $api->post('/password/change', 'App\Http\Controllers\User\Auth\PasswordController@change');
+$api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers', 'providers' => 'jwt'], function ($api) {
+	$api->get('/confirm/resend', 'App\Http\Controllers\User\Auth\AuthController@resendConfirmationEmail');
+    $api->post('/password/change', 'User\Auth\PasswordController@change');
 
-    $api->get('/decode', 'App\Http\Controllers\PagesController@decode');
-    $api->get('/show', 'App\Http\Controllers\PagesController@show');
+    $api->get('/decode', 'PagesController@decode');
+    $api->get('/show', 'PagesController@show');
 
+    $api->group(['namespace' => 'User'], function ($api) {
+        $api->post('/forein', 'BasicController@forein');
+        $api->post('/foreout', 'BasicController@foreout');
+    });
 });
 
 // Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {

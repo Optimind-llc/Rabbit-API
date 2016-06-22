@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class AdminTableSeeder
+ * Class PointTableSeeder
  */
 class PointTableSeeder extends Seeder
 {
