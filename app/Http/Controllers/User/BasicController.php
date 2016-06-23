@@ -40,7 +40,7 @@ class BasicController extends Controller
     /**
      * Fore in enent
      */
-    public function forein(Request $request)
+    public function start(Request $request)
     {
         $validator = app('validator')->make(
             $request->all(),
@@ -59,12 +59,12 @@ class BasicController extends Controller
         $today = Carbon::today();
         $user = $this->getUser();
 
-        $count_forein = $user->rabbits()
+        $count_start_events = $user->rabbits()
         	->where('created_at', '>=', $today)
         	->where('rabbit_type_id', 1)
         	->count();
 
-        if($count_forein === 0) {
+        if($count_start_events === 0) {
 	        $validator = app('validator')->make(
 	            $request->all(),
 	            [
@@ -118,12 +118,12 @@ class BasicController extends Controller
     /**
      * Fore out enent
      */
-    public function foreout(Request $request)
+    public function end(Request $request)
     {
         $validator = app('validator')->make(
             $request->all(),
             [
-                'interval' => ['required', 'integer'],
+                'points' => ['required', 'integer'],
                 'rate' => ['required', 'integer'],
                 'time' => ['required', 'digits:10']
             ]
@@ -134,24 +134,32 @@ class BasicController extends Controller
         }
 
         $now = Carbon::now();
-        $today = Carbon::today();
-        $max_points = (config('rabbit.end_time')-config('rabbit.start_time'))*60*60/config('rabbit.default_rate');
-        $this_points = floor($request->interval/$request->rate);
+        $end_time = Carbon::today()->addHours(config('rabbit.end_time'));
 
         $user = $this->getUser();
 
-        $points = $user->points()
-            ->where('created_at', '>=', $today)
-            ->where('history_type', 'rabbit')
-            ->get(['point']);
+        $latest_event = $user->rabbits()->orderBy('created_at', 'desc')->first();
 
-        $total_points = $points->reduce(function ($carry, $item) {
-            return $carry + $item->point;
-        }, 0);
+        // Check latest event, and throw error if event was not found.
+        if (!$latest_event instanceof Rabbit) {
+            return $this->response->errorBadRequest('No start enent');
+        }
 
-        $corrected_this_points = $total_points + $this_points > $max_points ?
-            $max_points - $total_points :
-            $this_points;
+        // Check latest event, and throw error if latest is end event.
+        if ($latest_event->rabbit_type_id === 2) {
+            return $this->response->errorBadRequest('No start enent');
+        }
+
+        $diff = $latest_event->created_at->diffInSeconds($now);
+
+        // Check injustice and cheating.
+        if ($request->points*$request->rate - $diff > config('rabbit.allowable_error')) {
+            return $this->response->errorBadRequest('Invalid data');
+        }
+
+        // Cut off points if it over time.
+        $max_points = floor($latest_event->created_at->diffInSeconds($end_time)/$request->rate);
+        $corrected_points = $request->points > $max_points ? $max_points : $request->points;
 
         $foreout_event = new Rabbit;
         $foreout_event->rabbit_type_id = 2;
@@ -163,23 +171,24 @@ class BasicController extends Controller
         $foreout_event->save();
 
         $point_event = new Point;
-        $point_event->point = $corrected_this_points;
+        $point_event->point = $corrected_points;
         $point_event->user_id = $user->id;
         $point_event->history_type = 'rabbit';
-        $point_event->history_id = $foreout_event->id;
+        $point_event->rabbit_id = $foreout_event->id;
         $point_event->created_at = $now;
         $point_event->updated_at = $now;
         $point_event->save();
 
-        if ($corrected_this_points !== $this_points) {
+        if ($corrected_points !== $request->points) {
             return $this->response->array([
                 'message' => 'Over max points',
-                'corrected_points' => $corrected_this_points
+                'corrected_points' => $corrected_points*config('rabbit.default_rate'),
+                'total' => $user->totalPoints()
             ]);
         } else {
             return $this->response->array([
-                'message' => 'add points successful',
-                'corrected_points' => $corrected_this_points
+                'message' => 'Add points successful',
+                'total' => $user->totalPoints()
             ]);
         }
     }

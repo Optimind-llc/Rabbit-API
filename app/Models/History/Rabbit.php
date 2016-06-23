@@ -32,6 +32,6 @@ class Rabbit extends Model
 
     public function type()
     {
-        return $this->belongsTo('App\Models\History\RabbitType');
+        return $this->belongsTo('App\Models\History\RabbitType', 'rabbit_type_id', 'id');
     }
 }

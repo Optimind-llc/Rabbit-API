@@ -34,4 +34,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    /**
+     * @return bool
+     */
+    public function totalPoints() {
+        return $this->points()->get(['point'])->reduce(function ($carry, $item) {
+            return $carry + $item->point;
+        }, 0);
+    }
 }

@@ -26,11 +26,11 @@ class RabbitTypeTableSeeder extends Seeder
 
         $rabbit_types = [
             [
-                'name' => 'for in',
+                'name' => 'start',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],[
-                'name' => 'for out',
+                'name' => 'end',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]

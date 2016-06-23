@@ -46,8 +46,8 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->get('/show', 'PagesController@show');
 
     $api->group(['namespace' => 'User'], function ($api) {
-        $api->post('/forein', 'BasicController@forein');
-        $api->post('/foreout', 'BasicController@foreout');
+        $api->post('/start', 'BasicController@start');
+        $api->post('/end', 'BasicController@end');
     });
 });
 

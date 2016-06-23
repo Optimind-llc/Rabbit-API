@@ -100,7 +100,9 @@ class CreatePointsTable extends Migration
             $table->smallInteger('point');
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('history_type');
-            $table->integer('history_id')->unsigned();
+            $table->integer('rabbit_id')->unsigned()->nullable();
+            $table->integer('bonus_id')->unsigned()->nullable();
+            $table->integer('order_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
@@ -110,6 +112,27 @@ class CreatePointsTable extends Migration
                 ->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
+
+            // Add Foreign
+            $table->foreign('rabbit_id')
+                ->references('id')
+                ->on('rabbits')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            // Add Foreign
+            $table->foreign('bonus_id')
+                ->references('id')
+                ->on('bonuses')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            // Add Foreign
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
