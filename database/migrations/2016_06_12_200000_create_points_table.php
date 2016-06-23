@@ -75,7 +75,8 @@ class CreatePointsTable extends Migration
             $table->increments('id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('rabbit_type_id')->unsigned();
-            $table->timestamp('local_time');
+            $table->smallInteger('device_interval')->unsigned()->nullable();
+            $table->timestamp('device_time');
             $table->timestamps();
             $table->softDeletes();
 

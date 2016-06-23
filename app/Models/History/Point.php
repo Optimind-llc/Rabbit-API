@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\Affiliation;
+namespace App\Models\History;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class School
- * @package App\Models\Affiliation
+ * @package App\Models\History
  */
-class School extends Model
+class Point extends Model
 {
     use SoftDeletes;
 
@@ -25,13 +25,8 @@ class School extends Model
      */
     protected $dates = ['deleted_at'];
 
-    public function campuses()
+    public function user()
     {
-        return $this->hasMany('App\Models\Affiliation\Campus');
-    }
-
-    public function users()
-    {
-        return $this->hasMany('App\Models\Access\User\User');
+        return $this->belongsTo('App\Models\Access\User\User');
     }
 }

@@ -17,8 +17,11 @@ trait UserRelationship
 
     public function rabbits()
     {
-        return $this->belongsTo('App\Models\History\Rabbit', 'id', 'user_id');
+        return $this->hasMany('App\Models\History\Rabbit');
     }
 
-    
+     public function points()
+    {
+        return $this->hasMany('App\Models\History\Point');
+    }
 }
