@@ -106,7 +106,7 @@ class BasicController extends Controller
         $latest_event = $user->rabbits()->orderBy('created_at', 'desc')->first();
 
         // Check latest event, and throw error if latest is start event.
-        if ($latest_event instanceof Rabbit && $latest_event->rabbit_type_id === 1) {
+        if ($latest_event instanceof Rabbit && $latest_event->rabbit_type_id == 1) {
             $latest_event->delete();
             $message = 'Not finished normally';
         }
@@ -157,7 +157,7 @@ class BasicController extends Controller
         }
 
         // Check latest event, and throw error if latest is end event.
-        if ($latest_event->rabbit_type_id === 2) {
+        if ($latest_event->rabbit_type_id == 2) {
             return $this->response->errorBadRequest('No start enent');
         }
 
