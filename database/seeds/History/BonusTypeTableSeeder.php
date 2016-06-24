@@ -15,14 +15,14 @@ class BonusTypeTableSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::table('bonus_types')->truncate();
-        } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . 'bonus_types');
-        } else {
-            //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . 'bonus_types' . ' CASCADE');
-        }
+        // if (env('DB_CONNECTION') == 'mysql') {
+        //     DB::table('bonus_types')->truncate();
+        // } elseif (env('DB_CONNECTION') == 'sqlite') {
+        //     DB::statement('DELETE FROM ' . 'bonus_types');
+        // } else {
+        //     //For PostgreSQL or anything else
+        //     DB::statement('TRUNCATE TABLE ' . 'bonus_types' . ' CASCADE');
+        // }
 
         $bonus_types = [
             [

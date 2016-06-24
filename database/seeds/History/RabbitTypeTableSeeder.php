@@ -15,14 +15,14 @@ class RabbitTypeTableSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::table('rabbit_types')->truncate();
-        } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . 'rabbit_types');
-        } else {
-            //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . 'rabbit_types' . ' CASCADE');
-        }
+        // if (env('DB_CONNECTION') == 'mysql') {
+        //     DB::table('rabbit_types')->truncate();
+        // } elseif (env('DB_CONNECTION') == 'sqlite') {
+        //     DB::statement('DELETE FROM ' . 'rabbit_types');
+        // } else {
+        //     //For PostgreSQL or anything else
+        //     DB::statement('TRUNCATE TABLE ' . 'rabbit_types' . ' CASCADE');
+        // }
 
         $rabbit_types = [
             [

@@ -15,14 +15,14 @@ class PointTableSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::table('points')->truncate();
-        } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . 'points');
-        } else {
-            //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . 'points' . ' CASCADE');
-        }
+        // if (env('DB_CONNECTION') == 'mysql') {
+        //     DB::table('points')->truncate();
+        // } elseif (env('DB_CONNECTION') == 'sqlite') {
+        //     DB::statement('DELETE FROM ' . 'points');
+        // } else {
+        //     //For PostgreSQL or anything else
+        //     DB::statement('TRUNCATE TABLE ' . 'points' . ' CASCADE');
+        // }
 
         $points = [
             [
