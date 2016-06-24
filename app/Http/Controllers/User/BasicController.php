@@ -95,13 +95,14 @@ class BasicController extends Controller
             }
         }
 
+return date_default_timezone_get();
+
         if ($now->lte($today->copy()->addHours(config('rabbit.start_time')))) {
             return $this->response->errorBadRequest('Still cannot fore in');
         }
 
         if ($now->gte($today->copy()->addHours(config('rabbit.end_time')))) {
-            // return $this->response->errorBadRequest('Already cannot fore in');
-            return $this->response->errorBadRequest($now);
+            return $this->response->errorBadRequest('Already cannot fore in');
         }
 
         $latest_event = $user->rabbits()->orderBy('created_at', 'desc')->first();
