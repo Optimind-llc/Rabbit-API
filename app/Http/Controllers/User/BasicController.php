@@ -95,6 +95,8 @@ class BasicController extends Controller
             }
         }
 
+return date_default_timezone_get();
+
         if ($now->lte($today->copy()->addHours(config('rabbit.start_time')))) {
             return $this->response->errorBadRequest('Still cannot fore in');
         }
