@@ -100,7 +100,8 @@ class BasicController extends Controller
         }
 
         if ($now->gte($today->copy()->addHours(config('rabbit.end_time')))) {
-            return $this->response->errorBadRequest('Already cannot fore in');
+            // return $this->response->errorBadRequest('Already cannot fore in');
+            return $this->response->errorBadRequest($now);
         }
 
         $latest_event = $user->rabbits()->orderBy('created_at', 'desc')->first();
