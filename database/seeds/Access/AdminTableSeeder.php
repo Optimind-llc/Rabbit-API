@@ -15,14 +15,14 @@ class AdminTableSeeder extends Seeder
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         }
 
-        if (env('DB_CONNECTION') == 'mysql') {
-            DB::table(config('access.admins_table_name'))->truncate();
-        } elseif (env('DB_CONNECTION') == 'sqlite') {
-            DB::statement('DELETE FROM ' . config('access.admins_table_name'));
-        } else {
-            //For PostgreSQL or anything else
-            DB::statement('TRUNCATE TABLE ' . config('access.admins_table_name') . ' CASCADE');
-        }
+        // if (env('DB_CONNECTION') == 'mysql') {
+        //     DB::table(config('access.admins_table_name'))->truncate();
+        // } elseif (env('DB_CONNECTION') == 'sqlite') {
+        //     DB::statement('DELETE FROM ' . config('access.admins_table_name'));
+        // } else {
+        //     //For PostgreSQL or anything else
+        //     DB::statement('TRUNCATE TABLE ' . config('access.admins_table_name') . ' CASCADE');
+        // }
 
         //Add the master administrator, user id of 1
         $users = [
