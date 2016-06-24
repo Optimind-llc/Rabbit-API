@@ -103,6 +103,14 @@ class BasicController extends Controller
             return $this->response->errorBadRequest('Already cannot fore in');
         }
 
+        $latest_event = $user->rabbits()->orderBy('created_at', 'desc')->first();
+
+        // Check latest event, and throw error if latest is start event.
+        if ($latest_event instanceof Rabbit && $latest_event->rabbit_type_id === 1) {
+            $latest_event->delete();
+            $message = 'Not finished normally';
+        }
+
         $event = new Rabbit;
         $event->rabbit_type_id = 1;
         $event->user_id = $user->id;
@@ -112,7 +120,10 @@ class BasicController extends Controller
         $event->updated_at = $now;
         $event->save();
 
-        return $this->response->array(['rate' => config('rabbit.default_rate')]);
+        return $this->response->array([
+            'message' => isset($message) ? $message : 'Finished normally',
+            'rate' => config('rabbit.default_rate')
+        ]);
     }
 
     /**
