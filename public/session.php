@@ -1,4 +1,2 @@
 <?php
-session_start();
-$count = &$_SESSION["count"];
-echo ++$count;
+echo date_default_timezone_get();
