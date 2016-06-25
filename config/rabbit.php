@@ -9,5 +9,5 @@ return [
 
     // Start time and End time [hours]
     'start_time' => 6,
-    'end_time' => 22,
+    'end_time' => 24,
 ];
