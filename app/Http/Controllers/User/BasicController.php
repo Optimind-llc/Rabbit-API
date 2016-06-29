@@ -153,12 +153,12 @@ class BasicController extends Controller
 
         // Check latest event, and throw error if event was not found.
         if (!$latest_event instanceof Rabbit) {
-            return $this->response->errorBadRequest('No start enent');
+            return $this->response->errorBadRequest('No start event');
         }
 
         // Check latest event, and throw error if latest is end event.
         if ($latest_event->rabbit_type_id == 2) {
-            return $this->response->errorBadRequest('No start enent');
+            return $this->response->errorBadRequest('No start event');
         }
 
         $diff = $latest_event->created_at->diffInSeconds($now);
@@ -198,7 +198,7 @@ class BasicController extends Controller
             ]);
         } else {
             return $this->response->array([
-                'message' => 'Add points successful',
+                'message' => 'Add points successfully',
                 'total' => $user->totalPoints()
             ]);
         }
