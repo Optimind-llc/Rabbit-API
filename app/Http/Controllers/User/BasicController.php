@@ -42,6 +42,7 @@ class BasicController extends Controller
      */
     public function start(Request $request)
     {
+        return $now = Carbon::now();
         $validator = app('validator')->make(
             $request->all(),
             [
