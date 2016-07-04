@@ -100,7 +100,6 @@ class BasicController extends Controller
         }
 
         if ($now->gte($today->copy()->addHours(config('rabbit.end_time')))) {
-            return $now = $today->copy()->addHours(config('rabbit.end_time'));
             return $this->response->errorBadRequest('Already cannot fore in');
         }
 
