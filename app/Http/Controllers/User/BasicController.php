@@ -38,6 +38,18 @@ class BasicController extends Controller
     }
 
     /**
+     * Get hold points
+     */
+    public function points(Request $request)
+    {
+        $user = $this->getUser();
+
+        return $this->response->array([
+            'hold_points' => $user->totalPoints()
+        ]);        
+    }
+
+    /**
      * Fore in enent
      */
     public function start(Request $request)
@@ -127,7 +139,7 @@ class BasicController extends Controller
     }
 
     /**
-     * Fore out enent
+     * End enent
      */
     public function end(Request $request)
     {

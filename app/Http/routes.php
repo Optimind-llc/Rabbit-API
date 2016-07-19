@@ -46,6 +46,7 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->get('/show', 'PagesController@show');
 
     $api->group(['namespace' => 'User'], function ($api) {
+        $api->get('/points', 'BasicController@points');
         $api->post('/start', 'BasicController@start');
         $api->post('/end', 'BasicController@end');
     });
