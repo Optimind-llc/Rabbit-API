@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Carbon\Carbon;
 // Models
 use App\Models\Access\User\User;
 use App\Models\Affiliation\School;
@@ -32,12 +33,13 @@ class AuthController extends Controller
         $validator = app('validator')->make(
             $request->all(),
             [
-                'family_name' => ['required', 'max:50'],
-                'given_name'  => ['required', 'max:50'],
-                'email'       => ['required', 'email', 'max:255'],
-                'password'    => ['required', 'min:6', 'max:32', 'alpha_num'],
+                // 'family_name' => ['required', 'max:50'],
+                // 'given_name'  => ['required', 'max:50'],
+                // 'email'       => ['required', 'email', 'max:255'],
+                // 'password'    => ['required', 'min:6', 'max:32', 'alpha_num'],
+                'device_id'   => ['required'],
                 'device_os'   => ['required'],
-                'school_id'   => ['required', 'integer']
+                // 'school_id'   => ['required', 'integer']
             ]
         );
 
@@ -51,16 +53,28 @@ class AuthController extends Controller
             throw new StoreResourceFailedException('Email already exist');
         }
 
+        // $user = new User;
+        // $user->family_name = $request->family_name;
+        // $user->given_name = $request->given_name;
+        // $user->email = $request->email;
+        // $user->password = bcrypt($request->password);
+        // $user->token = sha1(uniqid(mt_rand(), true));
+        // $user->confirmation_code = md5(uniqid(mt_rand(), true));
+        // $user->confirmed = config('access.users.confirm_email') ? 0 : 1;
+        // $user->status = 1;
+        // $user->school_id = $request->school_id;      
+        // $user->save();
+
         $user = new User;
-        $user->family_name = $request->family_name;
-        $user->given_name = $request->given_name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->family_name = 'user';
+        $user->given_name = Carbon::now()->timestamp;
+        $user->email = 'user@react.com';
+        $user->password = bcrypt('123456');
         $user->token = sha1(uniqid(mt_rand(), true));
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
         $user->confirmed = config('access.users.confirm_email') ? 0 : 1;
         $user->status = 1;
-        $user->school_id = $request->school_id;      
+        $user->school_id = 1;
         $user->save();
 
         // Queue jobを使ってメール送信

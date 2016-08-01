@@ -11,11 +11,25 @@ class CreateShopsTable extends Migration
      */
     public function up()
     {
+        Schema::create('genres', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->smallInteger('sort')->default(0)->unsigned();
+            $table->string('description')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('shops', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->smallInteger('sort')->default(0)->unsigned();
             $table->string('description')->nullable();
+            $table->string('address')->nullable();
+            $table->string('business_hours')->nullable();
+            $table->tinyInteger('business_days')->default(pow(2, 7) - 1)->unsigned();
+
+            $table->string('hp')->nullable();
             // 経度
             $table->string('geo_lat')->unique();
             // 緯度
@@ -28,6 +42,14 @@ class CreateShopsTable extends Migration
             $table->foreign('owner_id')
                 ->references('id')
                 ->on('owners')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+
+            // Add Foreign
+            $table->integer('genre_id')->unsigned()->nullable();
+            $table->foreign('genre_id')
+                ->references('id')
+                ->on('genres')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
         });

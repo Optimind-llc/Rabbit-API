@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(AffiliationTableSeeder::class);
         $this->call(AccessTableSeeder::class);
+        $this->call(ConsumptionTableSeeder::class);
         $this->call(HistoryTableSeeder::class);
 
         if (env('DB_CONNECTION') == 'mysql') {

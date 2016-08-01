@@ -39,7 +39,7 @@ $api->version('v1', ['namespace' => 'App\Http\Controllers\User\Auth'], function 
 
 // JWT Protected routes
 $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers', 'providers' => 'jwt'], function ($api) {
-	$api->get('/confirm/resend', 'App\Http\Controllers\User\Auth\AuthController@resendConfirmationEmail');
+	$api->get('/confirm/resend', 'User\Auth\AuthController@resendConfirmationEmail');
     $api->post('/password/change', 'User\Auth\PasswordController@change');
 
     $api->get('/decode', 'PagesController@decode');

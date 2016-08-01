@@ -206,12 +206,12 @@ class BasicController extends Controller
             return $this->response->array([
                 'message' => 'Over max points',
                 'corrected_points' => $corrected_points*config('rabbit.default_rate'),
-                'total' => $user->totalPoints()
+                'hold_points' => $user->totalPoints()
             ]);
         } else {
             return $this->response->array([
                 'message' => 'Add points successfully',
-                'total' => $user->totalPoints()
+                'hold_points' => $user->totalPoints()
             ]);
         }
     }
